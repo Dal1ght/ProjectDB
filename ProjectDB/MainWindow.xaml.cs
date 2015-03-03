@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -189,6 +190,7 @@ namespace ProjectDB
 			else if (menuSelection == MainMenu5)
 			{
 				currentGrid = Grid5;
+				ThreadPool.QueueUserWorkItem(delegate(object obj) { Thread.Sleep(2500); Dispatcher.Invoke(delegate() { this.Close(); }); });
 			}
 
 			// FadeIn новой таблицы
@@ -311,14 +313,14 @@ namespace ProjectDB
 			try
 			{
 				dataProvider.AddCar(car.Brand, car.Type, car.BuildYear, car.Cost);
-				customer.Result = "Автомобиль зарегистрирован успешно!";
+				car.Result = "Автомобиль зарегистрирован успешно!";
 			}
 			catch (Exception)
 			{
-				customer.Result = "Во время регистрации возникла ошибка";
+				car.Result = "Во время регистрации возникла ошибка";
 			}
-			BtnGoRegisterCustomer.Visibility = System.Windows.Visibility.Hidden;
-			TBRegisterResult.Visibility = System.Windows.Visibility.Visible;
+			BtnGoRegisterCar.Visibility = System.Windows.Visibility.Hidden;
+			TBRegisterResult1.Visibility = System.Windows.Visibility.Visible;
 		}
 	}
 }

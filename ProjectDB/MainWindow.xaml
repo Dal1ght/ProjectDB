@@ -333,7 +333,7 @@
 					</Binding>
 				</TextBox>
 				<Button x:Name="BtnGoRegisterCar" Margin="10" VerticalAlignment="Top" Click="DoRegisterCarButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="5" Grid.ColumnSpan="2"/>
-				<TextBlock x:Name="TBRegisterResult1" HorizontalAlignment="Center" Margin="10" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.Column="1"/>
+				<TextBlock x:Name="TBRegisterResult1" HorizontalAlignment="Center" Margin="10" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>
@@ -444,9 +444,8 @@
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Margin="10,0,10,10" Text="Выход" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock Margin="10,0,10,10" Text="Удачи!" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 			</Grid>
-			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>
 		<TextBlock HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="0,0,10,10"><Run Foreground="#FF666666" Text="АРМ Менеджера &quot;Rent-a-Car&quot;"/><LineBreak/><Run Foreground="#FFBBBBBB" Text="v 0.1 alpha"/></TextBlock>
 		<Image HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Source="Images/rentacar.png" Opacity="0.1" Width="150" Height="38">
