@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="d" x:Class="ProjectDB.MainWindow"
-        Title="MainWindow" Height="367" Width="728" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Segoe UI Light" FontWeight="Light" Background="White">
+        Title="АРМ Менеджера &quot;Rent-a-Car&quot;" Height="367" Width="728" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Segoe UI Light" FontWeight="Light" Background="White">
 	<Window.Resources>
 		<ControlTemplate x:Key="validationFailed">
 			<StackPanel Orientation="Horizontal">
@@ -261,12 +261,11 @@
 						</Binding.ValidationRules>
 					</Binding>
 				</TextBox>
-				<Button x:Name="BtnGoRegister" Margin="10" VerticalAlignment="Top" Click="DoRegisterButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="6" Grid.ColumnSpan="2"/>
+				<Button x:Name="BtnGoRegisterCustomer" Margin="10" VerticalAlignment="Top" Click="DoRegisterCustomerButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="6" Grid.ColumnSpan="2"/>
 				<TextBlock x:Name="TBRegisterResult" HorizontalAlignment="Center" Margin="10" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Grid.ColumnSpan="2" Visibility="Hidden"/>
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>
-		<TextBlock HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="0,0,10,10"><Run Foreground="#FF666666" Text="АРМ Менеджера &quot;Rent-a-Car&quot;"/><LineBreak/><Run Foreground="#FFBBBBBB" Text="v 0.1 alpha"/></TextBlock>
 		<Grid x:Name="Grid2" Margin="10" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
 			<Grid.RenderTransform>
 				<TransformGroup>
@@ -300,7 +299,41 @@
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Margin="10,0,10,10" Text="Регистрация автомобиля" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock Margin="10,0,0,0" Text="Регистрация автомобиля" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Марка" VerticalAlignment="Top" Grid.Row="1"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Тип" VerticalAlignment="Top" Grid.Row="2"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Год выпуска" VerticalAlignment="Top" Grid.Row="3"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Стоимость проката" VerticalAlignment="Top" Grid.Row="4"/>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1">
+					<Binding Path="Brand" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1">
+					<Binding Path="Type" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="3" Grid.Column="1">
+					<Binding Path="BuildYear" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="4" Grid.Column="1">
+					<Binding Path="Cost" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<Button x:Name="BtnGoRegisterCar" Margin="10" VerticalAlignment="Top" Click="DoRegisterCarButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="5" Grid.ColumnSpan="2"/>
+				<TextBlock x:Name="TBRegisterResult1" HorizontalAlignment="Center" Margin="10" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.Column="1"/>
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>
@@ -415,5 +448,20 @@
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>
+		<TextBlock HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="0,0,10,10"><Run Foreground="#FF666666" Text="АРМ Менеджера &quot;Rent-a-Car&quot;"/><LineBreak/><Run Foreground="#FFBBBBBB" Text="v 0.1 alpha"/></TextBlock>
+		<Image HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Source="Images/rentacar.png" Opacity="0.1" Width="150" Height="38">
+			<Image.Triggers>
+				<EventTrigger RoutedEvent="Loaded">
+					<EventTrigger.Actions>
+						<BeginStoryboard>
+							<Storyboard RepeatBehavior="Forever">
+								<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.1" To="0.4" Duration="0:0:08"></DoubleAnimation>
+								<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.4" To="0.1" Duration="0:0:08" BeginTime="0:0:08"></DoubleAnimation>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger.Actions>
+				</EventTrigger>
+			</Image.Triggers>
+		</Image>
 	</Grid>
 </Window>

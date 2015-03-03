@@ -25,16 +25,20 @@ namespace ProjectDB
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private SQLiteConnection conn;
 		private Customer customer;
+		private Car car;
 		private List<Label> menuItems;
 		private Label menuSelection = null;
 		private Grid currentGrid = null;
+		private DataProvider dataProvider;
 		public MainWindow()
 		{
 			InitializeComponent();
+			dataProvider = new DataProvider();
 			customer = new Customer();
+			car = new Car();
 			Grid1.DataContext = customer;
+			Grid2.DataContext = car;
 			menuItems = new List<Label>();
 			foreach (UIElement el in (GridMenu.Children[0] as Grid).Children)
 			{
@@ -46,8 +50,6 @@ namespace ProjectDB
 		}
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			conn = new SQLiteConnection("Data Source=data.db");
-			conn.Open();
 			/*ThicknessAnimationUsingKeyFrames taukf = new ThicknessAnimationUsingKeyFrames();
 			taukf.BeginTime = new TimeSpan(0, 0, 0, 0, 0);
 			taukf.Duration = new Duration(TimeSpan.FromMilliseconds(2000));
@@ -59,30 +61,21 @@ namespace ProjectDB
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			conn.Close();
-			conn.Dispose();
+			dataProvider.Dispose();
 		}
 
-		private void DoRegisterButton_Click(object sender, RoutedEventArgs e)
+		private void DoRegisterCustomerButton_Click(object sender, RoutedEventArgs e)
 		{
-			SQLiteCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "INSERT INTO Customers(FirstName, LastName, MiddleName, Address, Phone) "
-  + "VALUES (@firstName, @lastName, @middleName, @address, @phone);";
-			cmd.Parameters.AddWithValue("@firstName", customer.FirstName);
-			cmd.Parameters.AddWithValue("@lastName", customer.LastName);
-			cmd.Parameters.AddWithValue("@middleName", customer.MiddleName);
-			cmd.Parameters.AddWithValue("@address", customer.Address);
-			cmd.Parameters.AddWithValue("@phone", customer.Phone);
-			int ret = cmd.ExecuteNonQuery();
-			if (ret == 1)
+			try
 			{
+				dataProvider.AddCustomer(customer.FirstName, customer.LastName, customer.MiddleName, customer.Address, customer.Phone);
 				customer.Result = "Клиент зарегистрирован успешно!";
 			}
-			else
+			catch (Exception)
 			{
 				customer.Result = "Во время регистрации возникла ошибка";
 			}
-			BtnGoRegister.Visibility = System.Windows.Visibility.Hidden;
+			BtnGoRegisterCustomer.Visibility = System.Windows.Visibility.Hidden;
 			TBRegisterResult.Visibility = System.Windows.Visibility.Visible;
 		}
 
@@ -250,7 +243,8 @@ namespace ProjectDB
 			{
 				From = -Width,
 				To = 0,
-				Duration = new Duration(TimeSpan.FromMilliseconds(1000))
+				Duration = new Duration(TimeSpan.FromMilliseconds(1000)),
+				FillBehavior = FillBehavior.Stop
 			};
 			Storyboard.SetTarget(da1, GridMenu);
 			Storyboard.SetTargetProperty(da1, new PropertyPath("RenderTransform.Children[3].X"));
@@ -268,18 +262,63 @@ namespace ProjectDB
 			{
 				From = 0,
 				To = Width,
-				Duration = new Duration(TimeSpan.FromMilliseconds(1000))
+				Duration = new Duration(TimeSpan.FromMilliseconds(1000)),
+				FillBehavior = FillBehavior.Stop
 			};
 			Storyboard.SetTarget(da3, currentGrid);
 			Storyboard.SetTargetProperty(da3, new PropertyPath("RenderTransform.Children[3].X"));
 
+			DoubleAnimation dat1 = new DoubleAnimation()
+			{
+				From = 1,
+				To = 0,
+				Duration = new Duration(TimeSpan.FromMilliseconds(1)),
+				BeginTime = TimeSpan.FromMilliseconds(900),
+			};
+			Storyboard.SetTarget(dat1, currentGrid);
+			Storyboard.SetTargetProperty(dat1, new PropertyPath("RenderTransform.Children[0].ScaleX"));
+
+			DoubleAnimation dat2 = new DoubleAnimation()
+			{
+				From = 1,
+				To = 0,
+				Duration = new Duration(TimeSpan.FromMilliseconds(1)),
+				BeginTime = TimeSpan.FromMilliseconds(900),
+			};
+			Storyboard.SetTarget(dat2, currentGrid);
+			Storyboard.SetTargetProperty(dat2, new PropertyPath("RenderTransform.Children[0].ScaleY"));
+
 			sb.Children.Add(da1);
 			sb.Children.Add(da2);
 			sb.Children.Add(da3);
+			sb.Children.Add(dat1);
+			sb.Children.Add(dat2);
+			sb.Completed += sb2_Completed;
 			sb.Begin(this);
 
-			//currentGrid.Visibility = System.Windows.Visibility.Hidden;
+			//currentGrid.Visibility = System.Windows.Visibility.Hidden;		
+		}
+
+		void sb2_Completed(object sender, EventArgs e)
+		{
+			currentGrid.Visibility = System.Windows.Visibility.Hidden;
+			currentGrid.Opacity = 1;
 			GridMenu.IsEnabled = true;
+		}
+
+		private void DoRegisterCarButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				dataProvider.AddCar(car.Brand, car.Type, car.BuildYear, car.Cost);
+				customer.Result = "Автомобиль зарегистрирован успешно!";
+			}
+			catch (Exception)
+			{
+				customer.Result = "Во время регистрации возникла ошибка";
+			}
+			BtnGoRegisterCustomer.Visibility = System.Windows.Visibility.Hidden;
+			TBRegisterResult.Visibility = System.Windows.Visibility.Visible;
 		}
 	}
 }
