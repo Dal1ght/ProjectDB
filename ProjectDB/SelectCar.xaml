@@ -1,12 +1,16 @@
-﻿<Window x:Class="ProjectDB.SelectCar"
+﻿<Window x:Name="window" x:Class="ProjectDB.SelectCar"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SelectCar" Height="300" Width="300">
-    <Grid>
+        Title="SelectCar" Height="230" Width="500">
+	<Grid>
 		<Button Content="Продолжить" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Button_Click"/>
-		<DataGrid x:Name="CarsGrid" Margin="10,10,10,35" SelectionMode="Single">
+		<DataGrid x:Name="CarsGrid" Margin="10,10,10,35" SelectionMode="Single" AutoGenerateColumns="False" SelectedItem="{Binding SelectedCar, ElementName=window}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Binding="{Binding Path=ID}" ClipboardContentBinding="{x:Null}" Header="ID"/>
+				<DataGridTextColumn Binding="{Binding Path=Brand}" ClipboardContentBinding="{x:Null}" Header="Марка"/>
+				<DataGridTextColumn Binding="{Binding Path=Type}" ClipboardContentBinding="{x:Null}" Header="Тип"/>
+				<DataGridTextColumn Binding="{Binding Path=BuildYear}" ClipboardContentBinding="{x:Null}" Header="Год выпуска"/>
+				<DataGridTextColumn Binding="{Binding Path=Cost}" ClipboardContentBinding="{x:Null}" Header="Стоимость"/>
 			</DataGrid.Columns>
 		</DataGrid>
 

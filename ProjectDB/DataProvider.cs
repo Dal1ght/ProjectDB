@@ -83,7 +83,7 @@ namespace ProjectDB
 		public List<Car> GetCars()
 		{
 			SQLiteCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "Select * from Customers";
+			cmd.CommandText = "Select * from Cars";
 			SQLiteDataAdapter adp = new SQLiteDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adp.Fill(ds);

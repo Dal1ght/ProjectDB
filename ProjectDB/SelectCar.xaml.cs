@@ -54,7 +54,7 @@ namespace ProjectDB
 		{
 			if (SelectedCar == null)
 			{
-				if (MessageBox.Show("Заказчик не выбран. Закрыть окно выбора?", "Продолжить", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				if (MessageBox.Show("Автомобиль не выбран. Закрыть окно выбора?", "Продолжить", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					DialogResult = false;
 					this.Close();
