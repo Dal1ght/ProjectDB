@@ -49,17 +49,23 @@ namespace ProjectDB
 				switch (columnName)
 				{
 					case "Brand":
-						string fnpat = @"^([А-яA-z\-])+$";
-						if (!Regex.IsMatch(Brand, fnpat))
+						if (!String.IsNullOrEmpty(Brand))
 						{
-							err = "Поле Марка может содержать только буквы и знак дефиса ( - )";
+							string fnpat = @"^([А-яA-z\-])+$";
+							if (!Regex.IsMatch(Brand, fnpat))
+							{
+								err = "Поле Марка может содержать только буквы и знак дефиса ( - )";
+							}
 						}
 						break;
 					case "Type":
-						string mnpat = @"^([А-яA-z])+$";
-						if (!Regex.IsMatch(Type, mnpat))
+						if (!String.IsNullOrEmpty(Type))
 						{
-							err = "Тип может содержать только буквы";
+							string mnpat = @"^([А-яA-z])+$";
+							if (!Regex.IsMatch(Type, mnpat))
+							{
+								err = "Тип может содержать только буквы";
+							}
 						}
 						break;
 					case "Cost":
@@ -83,6 +89,14 @@ namespace ProjectDB
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 				if (propertyName != "NoErrors") NoErrors = true;
 			}
+		}
+
+		public Car()
+		{
+			Brand = String.Empty;
+			Type = String.Empty;
+			Cost = 0;
+			BuildYear = DateTime.Now.Year;
 		}
 	}
 }

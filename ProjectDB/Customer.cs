@@ -51,36 +51,51 @@ namespace ProjectDB
 				switch (columnName)
 				{
 					case "FirstName":
-						string fnpat = @"^([А-я\-])+$";
-						if (!Regex.IsMatch(FirstName, fnpat))
+						if (!String.IsNullOrEmpty(FirstName))
 						{
-							err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							string fnpat = @"^([А-я\-])+$";
+							if (!Regex.IsMatch(FirstName, fnpat))
+							{
+								err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							}
 						}
 						break;
 					case "MiddleName":
-						string mnpat = @"^([А-я\-])+$";
-						if (!Regex.IsMatch(MiddleName, mnpat))
+						if (!String.IsNullOrEmpty(MiddleName))
 						{
-							err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							string mnpat = @"^([А-я\-])+$";
+							if (!Regex.IsMatch(MiddleName, mnpat))
+							{
+								err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							}
 						}
 						break;
 					case "LastName":
-						string lnpat = @"^([А-я\-])+$";
-						if (!Regex.IsMatch(LastName, lnpat))
+						if (!String.IsNullOrEmpty(LastName))
 						{
-							err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							string lnpat = @"^([А-я\-])+$";
+							if (!Regex.IsMatch(LastName, lnpat))
+							{
+								err = "Поля Фамилия, Имя и Отчество могут содержать только буквы и знак дефиса ( - )";
+							}
 						}
 						break;
 					case "Address":
-						string apat = @"^([А-я0-9\s,\./\-])+$";
-						if (!Regex.IsMatch(Address, apat))
+						if (!String.IsNullOrEmpty(Address))
 						{
-							err = "Поле Адрес может содержать только буквы, цифры, пробелы и знаки . , /";
+							string apat = @"^([А-я0-9\s,\./\-])+$";
+							if (!Regex.IsMatch(Address, apat))
+							{
+								err = "Поле Адрес может содержать только буквы, цифры, пробелы и знаки . , /";
+							}
 						}
 						break;
 					case "Phone":
-						if(!Phone.StartsWith("+7") || Phone.Length != 12)
-							err = "Номер телефона не соответствует формату (+7xxxxxxxxxx)";
+						if (!String.IsNullOrEmpty(Phone))
+						{
+							if (!Phone.StartsWith("+7") || Phone.Length != 12)
+								err = "Номер телефона не соответствует формату (+7xxxxxxxxxx)";
+						}
 						break;
 				}
 				return err;
@@ -95,6 +110,16 @@ namespace ProjectDB
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 				if (propertyName != "NoErrors") NoErrors = true;
 			}
+		}
+
+		public Customer()
+		{
+			FirstName = String.Empty;
+			MiddleName = String.Empty;
+			LastName = String.Empty;
+			Address = String.Empty;
+			Phone = String.Empty;
+			Result = String.Empty;
 		}
 	}
 }
