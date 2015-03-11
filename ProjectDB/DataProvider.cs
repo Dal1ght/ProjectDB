@@ -45,7 +45,7 @@ namespace ProjectDB
 		{
 			SQLiteCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "INSERT INTO Cars(Brand, Cost, Type, BuildYear) "
-							+ "VALUES (@brand, @type, @buildyear, @cost);";
+							+ "VALUES (@brand, @cost, @type, @BuildYear);";
 			cmd.Parameters.AddWithValue("@brand", Brand);
 			cmd.Parameters.AddWithValue("@type", Type);
 			cmd.Parameters.AddWithValue("@buildyear", BuildYear);

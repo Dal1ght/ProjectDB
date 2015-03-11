@@ -18,11 +18,11 @@ namespace ProjectDB
 		private Int64 buildYear;
 		private string result;
 
-		public Int64 ID { get { return id; } set { id = value; NotifyPropertyChanged(); } }
-		public string Brand { get { return barnd; } set { barnd = value; NotifyPropertyChanged(); } }
-		public string Type { get { return type; } set { type = value; NotifyPropertyChanged(); } }
-		public Int64 Cost { get { return cost; } set { cost = value; NotifyPropertyChanged(); } }
-		public Int64 BuildYear { get { return buildYear; } set { buildYear = value; NotifyPropertyChanged(); } }
+		public Int64 ID { get { return id; } set { id = value; NotifyPropertyChanged(); Text = ""; } }
+		public string Brand { get { return barnd; } set { barnd = value; NotifyPropertyChanged(); Text = ""; } }
+		public string Type { get { return type; } set { type = value; NotifyPropertyChanged(); Text = ""; } }
+		public Int64 Cost { get { return cost; } set { cost = value; NotifyPropertyChanged();} }
+		public Int64 BuildYear { get { return buildYear; } set { buildYear = value; NotifyPropertyChanged(); Text = ""; } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
 		public bool NoErrors { get {
 			bool b;
@@ -81,6 +81,7 @@ namespace ProjectDB
 				return err;
 			}
 		}
+		public string Text { get { return ToString(); } set { NotifyPropertyChanged(); } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -98,6 +99,14 @@ namespace ProjectDB
 			Type = String.Empty;
 			Cost = 0;
 			BuildYear = DateTime.Now.Year;
+		}
+
+		public override string ToString()
+		{
+			if (ID != 0)
+				return String.Format("{0} - {1} {2} {3}", ID, Brand, Type, BuildYear);
+			else
+				return String.Empty;
 		}
 	}
 }
