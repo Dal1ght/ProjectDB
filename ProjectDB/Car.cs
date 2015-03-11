@@ -40,7 +40,6 @@ namespace ProjectDB
 		{
 			get { throw new NotImplementedException(); }
 		}
-
 		public string this[string columnName]
 		{
 			get 

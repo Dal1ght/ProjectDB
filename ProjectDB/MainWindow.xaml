@@ -356,7 +356,7 @@
 				<ColumnDefinition Width="8*"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.RowSpan="3">
+			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="0" Grid.RowSpan="3">
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition/>
@@ -370,7 +370,33 @@
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Margin="10,0,10,10" Text="Оформление проката" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock Margin="10,0,0,0" Text="Оформление сделки" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Заказчик" VerticalAlignment="Top" Grid.Row="1"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Автомобиль" VerticalAlignment="Top" Grid.Row="2"/>
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Дата возврата" VerticalAlignment="Top" Grid.Row="3"/>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1">
+					<Binding Path="Brand" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1">
+					<Binding Path="Type" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="3" Grid.Column="1">
+					<Binding Path="BuildYear" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<DataErrorValidationRule/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox>
+				<Button x:Name="BtnGoRegisterCar1" Margin="10" VerticalAlignment="Top" Click="DoRegisterCarButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="5" Grid.ColumnSpan="2"/>
+				<TextBlock x:Name="TBRegisterResult2" HorizontalAlignment="Center" Margin="10" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>

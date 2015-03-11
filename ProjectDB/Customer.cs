@@ -17,6 +17,7 @@ namespace ProjectDB
 		private string address;
 		private string phone;
 		private string result;
+		private double discount;
 
 		public string FirstName { get { return firstName; } set { firstName = value; NotifyPropertyChanged(); } }
 		public string MiddleName { get { return middleName; } set { middleName = value; NotifyPropertyChanged(); } }
@@ -24,28 +25,31 @@ namespace ProjectDB
 		public string Address { get { return address; } set { address = value; NotifyPropertyChanged(); } }
 		public string Phone { get { return phone; } set { phone = value; NotifyPropertyChanged(); } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
-		public bool NoErrors { get {
-			bool b;
-			try
+		public double Discount { get { return discount; } set { discount = value; NotifyPropertyChanged(); } }
+		public bool NoErrors
+		{
+			get
 			{
-				b = (this["FirstName"] == String.Empty) && (this["LastName"] == String.Empty) && (this["MiddleName"] == String.Empty) && (this["Address"] == String.Empty) && (this["Phone"] == String.Empty);
+				bool b;
+				try
+				{
+					b = (this["FirstName"] == String.Empty) && (this["LastName"] == String.Empty) && (this["MiddleName"] == String.Empty) && (this["Address"] == String.Empty) && (this["Phone"] == String.Empty);
+				}
+				catch
+				{
+					b = false;
+				}
+				return b;
 			}
-			catch
-			{
-				b = false;
-			}
-			return b;
-		}
 			set { NotifyPropertyChanged(); }
 		}
 		public string Error
 		{
 			get { throw new NotImplementedException(); }
 		}
-
 		public string this[string columnName]
 		{
-			get 
+			get
 			{
 				string err = String.Empty;
 				switch (columnName)

@@ -83,6 +83,7 @@
     <Compile Include="Car.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DataProvider.cs" />
+    <Compile Include="Deal.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
