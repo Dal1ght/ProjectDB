@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectDB
 {
-	class DataProvider : IDisposable
+	public class DataProvider : IDisposable
 	{
 		private SQLiteConnection conn;
 
@@ -54,6 +55,29 @@ namespace ProjectDB
 			{
 				throw new System.Exception();
 			}
+		}
+
+		public List<Customer> GetCustomers()
+		{
+			SQLiteCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "Select * from Customers";
+			SQLiteDataAdapter adp = new SQLiteDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adp.Fill(ds);
+			List<Customer> customers = new List<Customer>();
+			foreach(DataRow dr in ds.Tables[0].Rows)
+			{
+				Customer c = new Customer();
+				c.ID = (Int64)dr[0];
+				c.LastName = (string)dr[1];
+				c.FirstName = (string)dr[2];
+				c.MiddleName = (string)dr[3];
+				c.Address = (string)dr[4];
+				c.Phone = (string)dr[5];
+				c.Discount = (double)dr[6];
+				customers.Add(c);
+			}
+			return customers;
 		}
 	}
 }

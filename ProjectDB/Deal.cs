@@ -11,15 +11,15 @@ namespace ProjectDB
 {
 	class Deal : IDataErrorInfo, INotifyPropertyChanged
 	{
-		private int customerid;
-		private int carid;
+		private Customer customer;
+		private Car car;
 		private DateTime dealdate;
 		private DateTime returndate;
 		private DateTime actualreturndate;
 		private string result;
 
-		public int CustomerID { get { return customerid; } set { customerid = value; NotifyPropertyChanged(); } }
-		public int CarID { get { return carid; } set { carid = value; NotifyPropertyChanged(); } }
+		public Customer Customer { get { return customer; } set { customer = value; NotifyPropertyChanged(); } }
+		public Car Car { get { return car; } set { car = value; NotifyPropertyChanged(); } }
 		public DateTime DealDate { get { return dealdate; } set { dealdate = value; NotifyPropertyChanged(); } }
 		public DateTime ReturnlDate { get { return returndate; } set { returndate = value; NotifyPropertyChanged(); } }
 		public DateTime ActualReturnDate { get { return actualreturndate; } set { actualreturndate = value; NotifyPropertyChanged(); } }
@@ -68,8 +68,8 @@ namespace ProjectDB
 
 		public Deal()
 		{
-			customerid = 0;
-			carid = 0;
+			customer = new Customer();
+			car = new Car();
 			dealdate = DateTime.Now;
 			returndate = DateTime.Now;
 			actualreturndate = DateTime.Now;

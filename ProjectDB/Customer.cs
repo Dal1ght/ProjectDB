@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProjectDB
 {
-	class Customer : IDataErrorInfo, INotifyPropertyChanged
+	public class Customer : IDataErrorInfo, INotifyPropertyChanged
 	{
+		private Int64 id;
 		private string firstName;
 		private string middleName;
 		private string lastName;
@@ -19,9 +20,10 @@ namespace ProjectDB
 		private string result;
 		private double discount;
 
-		public string FirstName { get { return firstName; } set { firstName = value; NotifyPropertyChanged(); } }
-		public string MiddleName { get { return middleName; } set { middleName = value; NotifyPropertyChanged(); } }
-		public string LastName { get { return lastName; } set { lastName = value; NotifyPropertyChanged(); } }
+		public Int64 ID { get { return id; } set { id = value; NotifyPropertyChanged(); Text = ""; } }
+		public string FirstName { get { return firstName; } set { firstName = value; NotifyPropertyChanged(); Text = ""; } }
+		public string MiddleName { get { return middleName; } set { middleName = value; NotifyPropertyChanged(); Text = ""; } }
+		public string LastName { get { return lastName; } set { lastName = value; NotifyPropertyChanged(); Text = ""; } }
 		public string Address { get { return address; } set { address = value; NotifyPropertyChanged(); } }
 		public string Phone { get { return phone; } set { phone = value; NotifyPropertyChanged(); } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
@@ -45,7 +47,7 @@ namespace ProjectDB
 		}
 		public string Error
 		{
-			get { throw new NotImplementedException(); }
+			get { return String.Empty; }
 		}
 		public string this[string columnName]
 		{
@@ -105,6 +107,7 @@ namespace ProjectDB
 				return err;
 			}
 		}
+		public string Text { get { return ToString(); } set { NotifyPropertyChanged(); } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -124,6 +127,14 @@ namespace ProjectDB
 			Address = String.Empty;
 			Phone = String.Empty;
 			Result = String.Empty;
+		}
+
+		public override string ToString()
+		{
+			if (ID != 0)
+				return String.Format("{0} - {1} {2} {3}", ID, LastName, FirstName, MiddleName);
+			else
+				return String.Empty;
 		}
 	}
 }

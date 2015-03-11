@@ -32,14 +32,18 @@ namespace ProjectDB
 		private Label menuSelection = null;
 		private Grid currentGrid = null;
 		private DataProvider dataProvider;
+		private Deal deal;
+
 		public MainWindow()
 		{
 			InitializeComponent();
 			dataProvider = new DataProvider();
 			customer = new Customer();
 			car = new Car();
+			deal = new Deal();
 			Grid1.DataContext = customer;
 			Grid2.DataContext = car;
+			Grid3.DataContext = deal;
 			menuItems = new List<Label>();
 			foreach (UIElement el in (GridMenu.Children[0] as Grid).Children)
 			{
@@ -49,6 +53,7 @@ namespace ProjectDB
 				}
 			}
 		}
+
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			/*ThicknessAnimationUsingKeyFrames taukf = new ThicknessAnimationUsingKeyFrames();
@@ -80,11 +85,6 @@ namespace ProjectDB
 			TBRegisterResult.Visibility = System.Windows.Visibility.Visible;
 		}
 
-		/// <summary>
-		/// Fadeout menu animation
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
 		private void MenuItem_Click(object sender, MouseButtonEventArgs e)
 		{
 			Label item = sender as Label;
@@ -321,6 +321,25 @@ namespace ProjectDB
 			}
 			BtnGoRegisterCar.Visibility = System.Windows.Visibility.Hidden;
 			TBRegisterResult1.Visibility = System.Windows.Visibility.Visible;
+		}
+
+		private void SelectCustomer_Click(object sender, RoutedEventArgs e)
+		{
+			SelectCustomer sc = new SelectCustomer(dataProvider);
+			if (sc.ShowDialog() == true)
+			{
+				deal.Customer = sc.SelectedCustomer;
+			}
+		}
+
+		private void SelectCar_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void SelectDate_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
