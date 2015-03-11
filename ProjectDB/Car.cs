@@ -9,18 +9,20 @@ using System.Threading.Tasks;
 
 namespace ProjectDB
 {
-	class Car : IDataErrorInfo, INotifyPropertyChanged
+	public class Car : IDataErrorInfo, INotifyPropertyChanged
 	{
+		private Int64 id;
 		private string barnd;
 		private string type;
-		private int cost;
-		private int buildYear;
+		private Int64 cost;
+		private Int64 buildYear;
 		private string result;
 
+		public Int64 ID { get { return id; } set { id = value; NotifyPropertyChanged(); } }
 		public string Brand { get { return barnd; } set { barnd = value; NotifyPropertyChanged(); } }
 		public string Type { get { return type; } set { type = value; NotifyPropertyChanged(); } }
-		public int Cost { get { return cost; } set { cost = value; NotifyPropertyChanged(); } }
-		public int BuildYear { get { return buildYear; } set { buildYear = value; NotifyPropertyChanged(); } }
+		public Int64 Cost { get { return cost; } set { cost = value; NotifyPropertyChanged(); } }
+		public Int64 BuildYear { get { return buildYear; } set { buildYear = value; NotifyPropertyChanged(); } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
 		public bool NoErrors { get {
 			bool b;

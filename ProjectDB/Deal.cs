@@ -21,14 +21,14 @@ namespace ProjectDB
 		public Customer Customer { get { return customer; } set { customer = value; NotifyPropertyChanged(); } }
 		public Car Car { get { return car; } set { car = value; NotifyPropertyChanged(); } }
 		public DateTime DealDate { get { return dealdate; } set { dealdate = value; NotifyPropertyChanged(); } }
-		public DateTime ReturnlDate { get { return returndate; } set { returndate = value; NotifyPropertyChanged(); } }
+		public DateTime ReturnDate { get { return returndate; } set { returndate = value; NotifyPropertyChanged(); } }
 		public DateTime ActualReturnDate { get { return actualreturndate; } set { actualreturndate = value; NotifyPropertyChanged(); } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
 		public bool NoErrors { get {
 			bool b;
 			try
 			{
-				b = (this["Brand"] == String.Empty) && (this["Type"] == String.Empty) && (this["Cost"] == String.Empty) && (this["BuildYear"] == String.Empty);
+				b = (Customer.ID != 0) && (Car.ID != 0);
 			}
 			catch
 			{

@@ -41,7 +41,7 @@ namespace ProjectDB
 			}
 		}
 
-		public void AddCar(string Brand, string Type, int BuildYear, int Cost)
+		public void AddCar(string Brand, string Type, Int64 BuildYear, Int64 Cost)
 		{
 			SQLiteCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "INSERT INTO Cars(Brand, Cost, Type, BuildYear) "
@@ -78,6 +78,27 @@ namespace ProjectDB
 				customers.Add(c);
 			}
 			return customers;
+		}
+
+		public List<Car> GetCars()
+		{
+			SQLiteCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "Select * from Customers";
+			SQLiteDataAdapter adp = new SQLiteDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adp.Fill(ds);
+			List<Car> cars = new List<Car>();
+			foreach (DataRow dr in ds.Tables[0].Rows)
+			{
+				Car c = new Car();
+				c.ID = (Int64)dr[0];
+				c.Brand = (string)dr[1];
+				c.Cost = (Int64)dr[2];
+				c.Type = (string)dr[3];
+				c.BuildYear = (Int64)dr[4];
+				cars.Add(c);
+			}
+			return cars;
 		}
 	}
 }

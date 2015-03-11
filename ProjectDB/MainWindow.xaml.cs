@@ -334,7 +334,11 @@ namespace ProjectDB
 
 		private void SelectCar_Click(object sender, RoutedEventArgs e)
 		{
-
+			SelectCar sc = new SelectCar(dataProvider);
+			if (sc.ShowDialog() == true)
+			{
+				deal.Car = sc.SelectedCar;
+			}
 		}
 
 		private void SelectDate_Click(object sender, RoutedEventArgs e)

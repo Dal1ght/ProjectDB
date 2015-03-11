@@ -378,7 +378,7 @@
 					<Binding Path="Customer.Text" UpdateSourceTrigger="PropertyChanged">
 					</Binding>
 				</TextBox>
-				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" IsEnabled="False">
+				<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" IsReadOnly="True">
 					<Binding Path="Car" UpdateSourceTrigger="PropertyChanged">
 					</Binding>
 				</TextBox>
