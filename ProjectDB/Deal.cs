@@ -62,16 +62,31 @@ namespace ProjectDB
 			if (PropertyChanged != null)
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-				if (propertyName != "NoErrors") NoErrors = true;
+				if (propertyName != "NoErrors") 
+					NoErrors = true;
+				if (propertyName == "Customer" || propertyName == "Car" || propertyName == "DealDate" || propertyName == "ReturnDate")
+					Recalculate();
 			}
 		}
-
+		private void Recalculate()
+		{
+			if (Car.ID != 0)
+			{
+				TimeSpan dif = ReturnDate.Subtract(DealDate);
+				Int64 td = (Int64)(dif.TotalDays) + 1;
+				TotalPrice = (Int64)(Car.Cost * td);
+				if (Customer.ID != 0)
+				{
+					TotalPrice -= (Int64)(TotalPrice * Customer.Discount);
+				}
+			}
+		}
 		public Deal()
 		{
 			Customer = new Customer();
 			Car = new Car();
-			DealDate = DateTime.Now;
-			ReturnDate = DateTime.Now;
+			DealDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			ReturnDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 			TotalPrice = 0;
 		}
 	}

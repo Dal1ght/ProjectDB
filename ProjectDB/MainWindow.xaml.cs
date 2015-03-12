@@ -341,7 +341,7 @@ namespace ProjectDB
 			}
 		}
 
-		private void SelectDate_Click(object sender, RoutedEventArgs e)
+		private void DoRegisterDealButton_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
