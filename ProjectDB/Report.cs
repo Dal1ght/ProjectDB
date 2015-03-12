@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ProjectDB
 {
@@ -122,26 +123,7 @@ namespace ProjectDB
 
 		private void MakeReportHTML()
 		{
-			DateTime now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-			DateTime sdate = now;
-			List<Deal> ldeals;
-			if (Period.AllTime)
-			{
-				ldeals = deals;
-			}
-			else
-			{
-				if (Period.Week)
-					sdate = now.Subtract(TimeSpan.FromDays(7));
-				else if (Period.Month)
-					sdate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-				else if (Period.Year)
-					sdate = new DateTime(DateTime.Now.Year, 1, 1);
-				else
-					throw new NotImplementedException();
-				ldeals = (from deal in deals where deal.DealDate > sdate select deal).ToList();
-			}
-
+			List<Deal> ldeals = GetDatedDeals();
 			string frep = String.Format("Reports/report_{0:yyyy_MM_dd_HH_mm_ss}.html", DateTime.Now);
 			using (StreamWriter sw = File.CreateText(frep))
 			{
@@ -187,6 +169,30 @@ namespace ProjectDB
 				sw.Close();
 			}
 			Process.Start(AppDomain.CurrentDomain.BaseDirectory + "/" + frep);
+		}
+
+		private List<Deal> GetDatedDeals()
+		{
+			DateTime now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+			DateTime sdate = now;
+			List<Deal> ldeals;
+			if (Period.AllTime)
+			{
+				ldeals = deals;
+			}
+			else
+			{
+				if (Period.Week)
+					sdate = now.Subtract(TimeSpan.FromDays(7));
+				else if (Period.Month)
+					sdate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+				else if (Period.Year)
+					sdate = new DateTime(DateTime.Now.Year, 1, 1);
+				else
+					throw new NotImplementedException();
+				ldeals = (from deal in deals where deal.DealDate > sdate select deal).ToList();
+			}
+			return ldeals;
 		}
 	}
 }
