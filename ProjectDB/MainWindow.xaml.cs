@@ -77,7 +77,7 @@ namespace ProjectDB
 				dataProvider.AddCustomer(customer.FirstName, customer.LastName, customer.MiddleName, customer.Address, customer.Phone);
 				customer.Result = "Клиент зарегистрирован успешно!";
 			}
-			catch (Exception)
+			catch (SQLiteException)
 			{
 				customer.Result = "Во время регистрации возникла ошибка";
 			}
@@ -315,7 +315,7 @@ namespace ProjectDB
 				dataProvider.AddCar(car.Brand, car.Type, car.BuildYear, car.Cost);
 				car.Result = "Автомобиль зарегистрирован успешно!";
 			}
-			catch (Exception)
+			catch (SQLiteException)
 			{
 				car.Result = "Во время регистрации возникла ошибка";
 			}
@@ -348,9 +348,9 @@ namespace ProjectDB
 				dataProvider.MakeDeal(deal);
 				deal.Result = "Сделка успешно зарегистрированна";
 			}
-			catch(Exception)
+			catch (SQLiteException ex)
 			{
-				deal.Result = "Во время регистрации сделки возникла ошибка";
+				deal.Result = "Во время регистрации сделки возникла ошибка: " + ex.Message;
 			}
 			BtnGoRegisterDeal.Visibility = System.Windows.Visibility.Hidden;
 			TBRegisterResult2.Visibility = System.Windows.Visibility.Visible;

@@ -37,7 +37,7 @@ namespace ProjectDB
 			int ret = cmd.ExecuteNonQuery();
 			if (ret != 1)
 			{
-				throw new System.Exception();
+				throw new SQLiteException();
 			}
 		}
 
@@ -53,7 +53,7 @@ namespace ProjectDB
 			int ret = cmd.ExecuteNonQuery();
 			if (ret != 1)
 			{
-				throw new System.Exception();
+				throw new SQLiteException();
 			}
 		}
 
@@ -103,18 +103,62 @@ namespace ProjectDB
 
 		public void MakeDeal(Deal deal)
 		{
-			SQLiteCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "INSERT INTO Deals(CustomerID, CarID, DealDate, ReturnDate, TotalPrice) "
-							+ "VALUES (@customer, @car, @dealdate, @retdate, @totalp)";
-			cmd.Parameters.AddWithValue("@customer", deal.Customer.ID);
-			cmd.Parameters.AddWithValue("@car", deal.Car.ID);
-			cmd.Parameters.AddWithValue("@dealdate", deal.DealDate);
-			cmd.Parameters.AddWithValue("@retdate", deal.ReturnDate);
-			cmd.Parameters.AddWithValue("@totalp", deal.TotalPrice);
-			int ret = cmd.ExecuteNonQuery();
-			if(ret != 1)
+			// Добавление сделки в БД
+			using (SQLiteCommand cmd = conn.CreateCommand())
 			{
-				throw new System.Exception();
+				cmd.CommandText = "INSERT INTO Deals(CustomerID, CarID, DealDate, ReturnDate, TotalPrice) "
+								+ "VALUES (@customer, @car, @dealdate, @retdate, @totalp)";
+				cmd.Parameters.AddWithValue("@customer", deal.Customer.ID);
+				cmd.Parameters.AddWithValue("@car", deal.Car.ID);
+				cmd.Parameters.AddWithValue("@dealdate", deal.DealDate);
+				cmd.Parameters.AddWithValue("@retdate", deal.ReturnDate);
+				cmd.Parameters.AddWithValue("@totalp", deal.TotalPrice);
+				int ret = cmd.ExecuteNonQuery();
+				if (ret != 1)
+				{
+					throw new SQLiteException("Insert error");
+				}
+			}
+			// Расчет скидки
+			using (SQLiteCommand cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = "Select Count(*) from Deals where CustomerID = @customer";
+				cmd.Parameters.AddWithValue("@customer", deal.Customer.ID);
+				Int64 cnt = (Int64)cmd.ExecuteScalar();
+				double discount;
+				if (cnt < 25)
+				{
+					if (cnt < 10)
+					{
+						if (cnt < 3)
+						{
+							discount = 0.03;
+						}
+						else
+						{
+							discount = 0.05;
+						}
+					}
+					else
+					{
+						discount = 0.1;
+					}
+				}
+				else
+				{
+					discount = 0.17;
+				}
+				using(SQLiteCommand cmd2 = conn.CreateCommand())
+				{
+					cmd2.CommandText = "UPDATE Customers SET Discount = @disc WHERE ID = @id";
+					cmd2.Parameters.AddWithValue("@id", deal.Customer.ID);
+					cmd2.Parameters.AddWithValue("@disc", discount);
+					int ret = cmd2.ExecuteNonQuery();
+					if (ret != 1)
+					{
+						throw new SQLiteException("Discount error");
+					}
+				}
 			}
 		}
 	}
