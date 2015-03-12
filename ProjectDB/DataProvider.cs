@@ -100,5 +100,22 @@ namespace ProjectDB
 			}
 			return cars;
 		}
+
+		public void MakeDeal(Deal deal)
+		{
+			SQLiteCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "INSERT INTO Deals(CustomerID, CarID, DealDate, ReturnDate, TotalPrice) "
+							+ "VALUES (@customer, @car, @dealdate, @retdate, @totalp)";
+			cmd.Parameters.AddWithValue("@customer", deal.Customer.ID);
+			cmd.Parameters.AddWithValue("@car", deal.Car.ID);
+			cmd.Parameters.AddWithValue("@dealdate", deal.DealDate);
+			cmd.Parameters.AddWithValue("@retdate", deal.ReturnDate);
+			cmd.Parameters.AddWithValue("@totalp", deal.TotalPrice);
+			int ret = cmd.ExecuteNonQuery();
+			if(ret != 1)
+			{
+				throw new System.Exception();
+			}
+		}
 	}
 }

@@ -343,7 +343,17 @@ namespace ProjectDB
 
 		private void DoRegisterDealButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			try
+			{
+				dataProvider.MakeDeal(deal);
+				deal.Result = "Сделка успешно зарегистрированна";
+			}
+			catch(Exception)
+			{
+				deal.Result = "Во время регистрации сделки возникла ошибка";
+			}
+			BtnGoRegisterDeal.Visibility = System.Windows.Visibility.Hidden;
+			TBRegisterResult2.Visibility = System.Windows.Visibility.Visible;
 		}
 	}
 }

@@ -383,7 +383,7 @@
 					</Binding>
 				</TextBox>
 				<Button x:Name="BtnGoRegisterDeal" Margin="10" VerticalAlignment="Top" Click="DoRegisterDealButton_Click" IsEnabled="{Binding NoErrors}" Content="Продолжить" Grid.Row="6" Grid.ColumnSpan="2"/>
-				<TextBlock x:Name="TBRegisterResult2" HorizontalAlignment="Center" Margin="10" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
+				<TextBlock x:Name="TBRegisterResult2" HorizontalAlignment="Center" Margin="10" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Result}" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
 				<Button Content="→" Grid.Column="1" HorizontalAlignment="Left" Margin="135,10,10,0" Grid.Row="1" VerticalAlignment="Top" Width="23" Height="23" Click="SelectCustomer_Click"/>
 				<Button Content="→" Grid.Column="1" HorizontalAlignment="Left" Margin="135,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="23" Height="23" Click="SelectCar_Click"/>
 				<TextBlock HorizontalAlignment="Left" Margin="10,10,10,0" TextWrapping="Wrap" Text="Дата возврата" VerticalAlignment="Top" Grid.Row="4"/>

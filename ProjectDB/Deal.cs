@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectDB
 {
-	class Deal : IDataErrorInfo, INotifyPropertyChanged
+	public class Deal : IDataErrorInfo, INotifyPropertyChanged
 	{
 		private Customer customer;
 		private Car car;
