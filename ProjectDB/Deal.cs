@@ -15,14 +15,14 @@ namespace ProjectDB
 		private Car car;
 		private DateTime dealdate;
 		private DateTime returndate;
-		private DateTime actualreturndate;
+		private Int64 totalprice;
 		private string result;
 
 		public Customer Customer { get { return customer; } set { customer = value; NotifyPropertyChanged(); } }
 		public Car Car { get { return car; } set { car = value; NotifyPropertyChanged(); } }
 		public DateTime DealDate { get { return dealdate; } set { dealdate = value; NotifyPropertyChanged(); } }
 		public DateTime ReturnDate { get { return returndate; } set { returndate = value; NotifyPropertyChanged(); } }
-		public DateTime ActualReturnDate { get { return actualreturndate; } set { actualreturndate = value; NotifyPropertyChanged(); } }
+		public Int64 TotalPrice { get { return totalprice; } set { totalprice = value; NotifyPropertyChanged(); } }
 		public string Result { get { return result; } set { result = value; NotifyPropertyChanged(); } }
 		public bool NoErrors { get {
 			bool b;
@@ -68,11 +68,11 @@ namespace ProjectDB
 
 		public Deal()
 		{
-			customer = new Customer();
-			car = new Car();
-			dealdate = DateTime.Now;
-			returndate = DateTime.Now;
-			actualreturndate = DateTime.Now;
+			Customer = new Customer();
+			Car = new Car();
+			DealDate = DateTime.Now;
+			ReturnDate = DateTime.Now;
+			TotalPrice = 0;
 		}
 	}
 }
