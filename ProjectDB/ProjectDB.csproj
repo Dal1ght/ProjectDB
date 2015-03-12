@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Report.cs" />
     <Compile Include="SelectCar.xaml.cs">
       <DependentUpon>SelectCar.xaml</DependentUpon>
     </Compile>
@@ -139,6 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\rentacar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\report.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets')" />

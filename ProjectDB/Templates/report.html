@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div><h3>Клиенты</h3></div>
+    <table border="1" cellpadding="5" style="width:100%;" cellspacing="0">
+        <tr>
+            <td>ID</td>
+            <td>ФИО</td>
+            <td>Адрес</td>
+            <td>Телефон</td>
+            <td>Скидка</td>
+        </tr>
+        [CUSTOMER]<tr><td>{0}</td><td>{1} {2} {3}</td><td>{4}</td><td>{5}</td><td>{6:0.# %}</td></tr>
+    </table>
+
+    <div><h3>Автомобили</h3></div>
+    <table border="1" cellpadding="5" style="width:100%;" cellspacing="0">
+        <tr>
+            <td>ID</td>
+            <td>Марка</td>
+            <td>Тип</td>
+            <td>Год выпуска</td>
+            <td>Стоимость</td>
+        </tr>
+        [CAR]<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>
+    </table>
+
+    <div><h3>Сделки</h3></div>
+    <table border="1" cellpadding="5" style="width:100%;" cellspacing="0">
+        <tr>
+            <td>ID</td>
+            <td>Заказчик</td>
+            <td>Автомобиль</td>
+            <td>Дата сделки</td>
+            <td>Дата возврата</td>
+            <td>Сумма сделки</td>
+        </tr>
+        [DEAL]<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3:dd.MM.yyyy}</td><td>{4:dd.MM.yyyy}</td><td>{5}</td></tr>
+    </table>
+</body>
+</html>

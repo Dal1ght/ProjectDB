@@ -33,6 +33,7 @@ namespace ProjectDB
 		private Grid currentGrid = null;
 		private DataProvider dataProvider;
 		private Deal deal;
+		private Report report;
 
 		public MainWindow()
 		{
@@ -41,9 +42,11 @@ namespace ProjectDB
 			customer = new Customer();
 			car = new Car();
 			deal = new Deal();
+			report = new Report(dataProvider);
 			Grid1.DataContext = customer;
 			Grid2.DataContext = car;
 			Grid3.DataContext = deal;
+			Grid4.DataContext = report;
 			menuItems = new List<Label>();
 			foreach (UIElement el in (GridMenu.Children[0] as Grid).Children)
 			{
@@ -174,14 +177,20 @@ namespace ProjectDB
 			{
 				// Menu Item 1
 				currentGrid = Grid1;
+				BtnGoRegisterCustomer.Visibility = System.Windows.Visibility.Visible;
+				TBRegisterResult.Visibility = System.Windows.Visibility.Hidden;
 			}
 			else if (menuSelection == MainMenu2)
 			{
 				currentGrid = Grid2;
+				BtnGoRegisterCar.Visibility = System.Windows.Visibility.Visible;
+				TBRegisterResult1.Visibility = System.Windows.Visibility.Hidden;
 			}
 			else if (menuSelection == MainMenu3)
 			{
 				currentGrid = Grid3;
+				BtnGoRegisterDeal.Visibility = System.Windows.Visibility.Visible;
+				TBRegisterResult2.Visibility = System.Windows.Visibility.Hidden;
 			}
 			else if (menuSelection == MainMenu4)
 			{
@@ -345,7 +354,7 @@ namespace ProjectDB
 		{
 			try
 			{
-				dataProvider.MakeDeal(deal);
+				dataProvider.AddDeal(deal);
 				deal.Result = "Сделка успешно зарегистрированна";
 			}
 			catch (SQLiteException ex)
@@ -354,6 +363,11 @@ namespace ProjectDB
 			}
 			BtnGoRegisterDeal.Visibility = System.Windows.Visibility.Hidden;
 			TBRegisterResult2.Visibility = System.Windows.Visibility.Visible;
+		}
+
+		private void MakeReport(object sender, RoutedEventArgs e)
+		{
+			report.MakeReport();
 		}
 	}
 }

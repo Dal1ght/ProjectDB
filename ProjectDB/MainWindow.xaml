@@ -415,19 +415,30 @@
 			</Grid.ColumnDefinitions>
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.RowSpan="3">
 				<Grid.RowDefinitions>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Margin="10,0,10,10" Text="Формирование отчета" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Создание отчета" VerticalAlignment="Top" FontSize="24" TextDecorations="{x:Null}" Grid.ColumnSpan="2"/>
+				<GroupBox Header="Период" Grid.Row="1" Margin="10">
+					<Grid Margin="0">
+						<RadioButton Content="Неделя" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" GroupName="Period" IsChecked="{Binding Path=Period.Week}"/>
+						<RadioButton Content="Месяц" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" GroupName="Period" IsChecked="{Binding Path=Period.Month}"/>
+						<RadioButton Content="Год" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" GroupName="Period" IsChecked="{Binding Path=Period.Year}" Height="15"/>
+						<RadioButton Content="Все время" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" GroupName="Period" IsChecked="{Binding Path=Period.AllTime}" Height="15"/>
+					</Grid>
+				</GroupBox>
+				<GroupBox Header="Формат" Grid.Row="1" Grid.Column="1" Margin="10">
+					<Grid Margin="0">
+						<RadioButton Content=".xls (Excel)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" GroupName="Format" IsChecked="{Binding Path=Format.XLS}"/>
+						<RadioButton Content=".html (Web)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" IsChecked="{Binding Path=Format.HTML}" GroupName="Format"/>
+					</Grid>
+				</GroupBox>
+				<Button Content="Продолжить" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="2" Margin="10,10,10,0" Click="MakeReport"/>
 			</Grid>
 			<Label Margin="0" Grid.RowSpan="3" Style="{DynamicResource BackLabel}"/>
 		</Grid>

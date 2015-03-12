@@ -17,7 +17,9 @@ namespace ProjectDB
 		private DateTime returndate;
 		private Int64 totalprice;
 		private string result;
+		private Int64 id;
 
+		public Int64 ID { get { return id; } set { id = value; NotifyPropertyChanged(); } }
 		public Customer Customer { get { return customer; } set { customer = value; NotifyPropertyChanged(); } }
 		public Car Car { get { return car; } set { car = value; NotifyPropertyChanged(); } }
 		public DateTime DealDate { get { return dealdate; } set { dealdate = value; NotifyPropertyChanged(); } }
