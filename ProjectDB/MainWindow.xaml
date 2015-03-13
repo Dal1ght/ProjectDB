@@ -434,7 +434,7 @@
 				</GroupBox>
 				<GroupBox Header="Формат" Grid.Row="1" Grid.Column="1" Margin="10">
 					<Grid Margin="0">
-						<RadioButton Content=".xls (Excel)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" GroupName="Format" IsChecked="{Binding Path=Format.XLS}"/>
+						<RadioButton Content=".txt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" GroupName="Format" IsChecked="{Binding Path=Format.TXT}"/>
 						<RadioButton Content=".html (Web)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" IsChecked="{Binding Path=Format.HTML}" GroupName="Format"/>
 					</Grid>
 				</GroupBox>

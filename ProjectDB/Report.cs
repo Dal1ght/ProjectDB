@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ProjectDB
 {
@@ -51,10 +50,10 @@ namespace ProjectDB
 		}
 		public class CFormat : INotifyPropertyChanged
 		{
-			private bool xls;
+			private bool txt;
 			private bool html;
 
-			public bool XLS { get { return xls; } set { xls = value; NotifyPropertyChanged(); } }
+			public bool TXT { get { return txt; } set { txt = value; NotifyPropertyChanged(); } }
 			public bool HTML { get { return html; } set { html = value; NotifyPropertyChanged(); } }
 			public event PropertyChangedEventHandler PropertyChanged;
 			private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -67,7 +66,7 @@ namespace ProjectDB
 
 			public CFormat()
 			{
-				XLS = false;
+				TXT = false;
 				HTML = true;
 			}
 		}
@@ -102,9 +101,9 @@ namespace ProjectDB
 				Directory.CreateDirectory("Reports");
 			}
 
-			if (Format.XLS)
+			if (Format.TXT)
 			{
-				MakeReportXLS();
+				MakeReportTXT();
 			}
 			else if (Format.HTML)
 			{
@@ -116,9 +115,54 @@ namespace ProjectDB
 			}
 		}
 
-		private void MakeReportXLS()
+		private void MakeReportTXT()
 		{
-
+			List<Deal> ldeals = GetDatedDeals();
+			string frep = String.Format("Reports/report_{0:yyyy_MM_dd_HH_mm_ss}.txt", DateTime.Now);
+			using (StreamWriter sw = File.CreateText(frep))
+			{
+				using (StreamReader sr = File.OpenText("Templates/report.txt"))
+				{
+					while (!sr.EndOfStream)
+					{
+						string line = sr.ReadLine();
+						if (line.StartsWith("[CUSTOMER]"))
+						{
+							line = line.Substring(10);
+							foreach (Customer c in customers)
+							{
+								string s = String.Format(line, c.ID, c.LastName, c.FirstName, c.MiddleName, c.Address, c.Phone, c.Discount);
+								sw.WriteLine(s);
+							}
+						}
+						else if (line.StartsWith("[CAR]"))
+						{
+							line = line.Substring(5);
+							foreach (Car c in cars)
+							{
+								string s = String.Format(line, c.ID, c.Brand, c.Type, c.BuildYear, c.Cost);
+								sw.WriteLine(s);
+							}
+						}
+						else if (line.StartsWith("[DEAL]"))
+						{
+							line = line.Substring(6);
+							foreach (Deal d in ldeals)
+							{
+								string s = String.Format(line, d.ID, d.Customer.Text, d.Car.Text, d.DealDate, d.ReturnDate, d.TotalPrice);
+								sw.WriteLine(s);
+							}
+						}
+						else
+						{
+							sw.WriteLine(line);
+						}
+					}
+					sr.Close();
+				}
+				sw.Close();
+			}
+			Process.Start(AppDomain.CurrentDomain.BaseDirectory + "/" + frep);
 		}
 
 		private void MakeReportHTML()
